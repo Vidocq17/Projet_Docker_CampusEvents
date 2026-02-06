@@ -1,0 +1,92 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "app", "-d", "app"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  php:
+    build:
+      context: .
+      dockerfile: infra/php/Dockerfile
+    working_dir: /var/www/backend
+    volumes:
+      - ./backend:/var/www/backend
+    environment:
+      APP_ENV: dev
+      DATABASE_URL: "postgresql://app:app@db:5432/app?serverVersion=16&charset=utf8"
+    depends_on:
+      redis:
+        condition: service_started
+      db:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.27-alpine
+    volumes:
+      - ./backend:/var/www/backend:ro
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8082:80"
+    depends_on:
+      - php
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # UI web
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: "1"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "1"
+
+  frontend:
+    image: node:20-bookworm-slim
+    working_dir: /workspace/campus-events
+    volumes:
+      - ./frontend:/workspace
+    ports:
+      - "5173:5173"
+    environment:
+      # pour des watchers stables sur Docker Desktop/WSL2
+      CHOKIDAR_USEPOLLING: "true"
+      # variable utile côté frontend pour appeler l'API
+      NEXT_PUBLIC_API_BASE_URL: "http://localhost:8082/api"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  database_data:
+  redis_data:
