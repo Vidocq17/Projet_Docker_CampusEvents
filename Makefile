@@ -8,7 +8,10 @@ logs-php:
 	docker compose logs -f php
 
 install-symfony:
-	docker compose run --rm php symfony new . --webapp --no-git
+	docker compose exe php composer create-project symfony/skeleton:"8.0.*"
+
+webapp:
+	docker compose exec php composer require webapp
 
 composer-install:
 	docker compose run --rm php composer install
