@@ -8,7 +8,7 @@ logs-php:
 	docker compose logs -f php
 
 install-symfony:
-	docker compose exe php composer create-project symfony/skeleton:"8.0.*"
+	docker compose exec php composer create-project symfony/skeleton:"8.0.*" .
 
 webapp:
 	docker compose exec php composer require webapp
@@ -21,6 +21,9 @@ migration:
 
 migrate:
 	docker compose exec php symfony console doctrine:migrations:migrate --no-interaction
+
+controller:
+	docker compose exec php symfony console make:controller
 
 entity:
 	docker compose exec php symfony console make:entity
