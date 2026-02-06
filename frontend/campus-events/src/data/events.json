@@ -1,0 +1,52 @@
+[
+  {
+    "id": "evt-001",
+    "nom": "Soirée d’intégration CampusEvents",
+    "date": "2026-03-05T18:30:00+01:00",
+    "localisation": "Amphi A — Bâtiment Principal",
+    "description_rapide": "Rencontre des étudiants, présentation des assos et buffet convivial.",
+    "image": "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["campus", "social"],
+    "capacite": 120
+  },
+  {
+    "id": "evt-002",
+    "nom": "Atelier CV & LinkedIn (spécial alternance)",
+    "date": "2026-03-12T12:15:00+01:00",
+    "localisation": "Salle B204 — Pôle Carrières",
+    "description_rapide": "Optimise ton CV, ton profil LinkedIn et prépare ton pitch recruteur.",
+    "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["carriere", "atelier"],
+    "capacite": 40
+  },
+  {
+    "id": "evt-003",
+    "nom": "Conférence : IA & métiers du web",
+    "date": "2026-03-19T17:45:00+01:00",
+    "localisation": "Auditorium — Bâtiment C",
+    "description_rapide": "Panorama des usages IA (design, dev, SEO) et conseils pour évoluer.",
+    "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["tech", "conference"],
+    "capacite": 200
+  },
+  {
+    "id": "evt-004",
+    "nom": "Tournoi e-sport (Rocket League)",
+    "date": "2026-03-26T19:00:00+01:00",
+    "localisation": "Cafétéria — Zone gaming",
+    "description_rapide": "Tournoi en équipes, lots à gagner, ambiance chill et casting live.",
+    "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["gaming", "tournoi"],
+    "capacite": 64
+  },
+  {
+    "id": "evt-005",
+    "nom": "Clean Walk : campus & quartier",
+    "date": "2026-04-02T10:00:00+02:00",
+    "localisation": "Point de départ : Entrée principale",
+    "description_rapide": "Ramassage collectif, gants et sacs fournis. On termine par un café.",
+    "image": "https://images.unsplash.com/photo-1520975682031-ae2b7f6f0d0e?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["eco", "campus"],
+    "capacite": 80
+  }
+]
